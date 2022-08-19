@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-namespace finalproject
 
+namespace finalproject
 {
     class Program
     {
@@ -510,7 +510,8 @@ namespace finalproject
                 if (scores[i] < min)
                     min = scores[i];
                 Console.WriteLine("玩家 {0} 積分: {1}", player_array[i].Name, scores[i]);
-                player_array[i].PrintCards("已蓋的牌\n", player_array[i].coveredCard);
+                player_array[i].PrintCards("已蓋的牌", player_array[i].coveredCard);
+                Console.WriteLine();
             }
 
             Player winner = player_array[Array.IndexOf(scores, min)];

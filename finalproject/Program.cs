@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-
 namespace finalproject
+
 {
     class Program
     {
         static void Main(string[] args)
         {
             const int gameQuantity = 4;
-            string[] gameList = new string[] { "game1", "game2", "game3", "game4" };
+            string[] gameList = new string[] { "game1-推倒提基", "game2-變色龍", "game3-圈圈叉叉", "game4-四子棋" };
             int gameSelect = 0;
             int win = 0, lose = 0, tie = 0;
             bool quit = false;
@@ -537,10 +537,40 @@ namespace finalproject
         }
         static void UserTurn(ref char[,] board, ref int[] oCount, ref int totalTurn) //user: o
         {
-            Console.Write("換你下(請先輸入左方座標，再輸入上方座標，並以逗號隔開): ");
-            string[] userInput = Console.ReadLine().Split(',');
-            int i = int.Parse(userInput[0]);
-            int j = int.Parse(userInput[1]);
+            Console.Write("換你下(請先輸入左方座標，再輸入上方做標，並以逗號隔開): ");
+            int i = 0;
+            int j = 0;
+            bool successPut = false;
+            do
+            {
+                do
+                {
+                    string[] userInput;
+                    try
+                    {
+                        userInput = Console.ReadLine().Split(',');
+                        i = int.Parse(userInput[0]);
+                        j = int.Parse(userInput[1]);
+                        successPut = true;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("輸入格式錯誤，請重新輸入!");
+                        successPut = false;
+                        continue;
+                    }
+                } while (!successPut);
+                successPut = false;
+                if ((i > 2 || i < -1) || (j > 2 || j < 0))
+                {
+                    Console.WriteLine("無此格，請下另一格!");
+                    continue;
+                }
+                else if (board[i, j] != ' ')
+                    Console.WriteLine("此格已被填滿，請下另一格!");
+                else
+                    successPut = true;
+            } while (!successPut);
             Put(ref board, ref oCount, i, j, 'o', ref totalTurn);
         }
         static void ComputerTurn(ref char[,] board, ref int[] xCount, ref int totalTurn, int[] oCount) //computer: x
